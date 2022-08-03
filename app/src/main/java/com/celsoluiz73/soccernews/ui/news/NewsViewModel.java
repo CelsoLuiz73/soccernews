@@ -4,26 +4,48 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.celsoluiz73.soccernews.data.remote.SoccerNewsApi;
 import com.celsoluiz73.soccernews.domain.News;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsViewModel extends ViewModel {
 
-    private final MutableLiveData<List<News>> news;
+    private final MutableLiveData<List<News>> news = new MutableLiveData<>();
+    private final SoccerNewsApi api;
 
     public NewsViewModel() {
-        this.news = new MutableLiveData<>();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://celsoluiz73.github.io/soccernewsApi/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(SoccerNewsApi.class);
+        this.findNews();
+    }
 
-        //TODO remover Mock de Notícias
-        List<News> news = new ArrayList<>();
-        news.add(new News("Ferroviaria Tem Desfalque Importante", "\"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...\""));
-        news.add(new News("Ferrinha Joga Sábado", "\"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...\""));
-        news.add(new News("Copa do Mundo Feminina Está Acabando", "\"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...\""));
+    public void findNews() {
+        api.getNews().enqueue(new Callback<List<News>>() {
+            @Override
+            public void onResponse(Call<List<News>> call, Response<List<News>> response) {
+                if (response.isSuccessful()) {
+                    news.setValue(response.body());
+                } else {
+                    //TODO pensar em uma estratégia de tratamento de erros.
+                }
+            }
 
-        this.news.setValue(news);
+            @Override
+            public void onFailure(Call<List<News>> call, Throwable t) {
+                //TODO pensar em uma estratégia de tratamento de erros.
 
+            }
+        });
     }
 
     public LiveData<List<News>> getNews() {

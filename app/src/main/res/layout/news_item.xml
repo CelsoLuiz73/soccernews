@@ -19,9 +19,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@color/black"
-            tools:srcCompat="@tools:sample/avatars"
-            />
+            android:src="@color/teal_200"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
@@ -50,16 +49,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btOpenLink"
+            style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginBottom="@dimen/default_margin"
-            tools:text="@string/txt_open_link"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDescription"
-            style="?attr/borderlessButtonStyle"/>
+            tools:text="@string/txt_open_link" />
 
         <ImageView
             android:id="@+id/imFavorite"
@@ -69,8 +69,10 @@
             app:layout_constraintBottom_toBottomOf="@+id/btOpenLink"
             app:layout_constraintEnd_toStartOf="@+id/ibShare"
             app:layout_constraintTop_toTopOf="@+id/btOpenLink"
-            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_favorite"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_favorite_icon" />
 
         <ImageView
@@ -81,8 +83,10 @@
             app:layout_constraintBottom_toBottomOf="@+id/btOpenLink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btOpenLink"
-            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_share"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_share_icon" />
 
 
