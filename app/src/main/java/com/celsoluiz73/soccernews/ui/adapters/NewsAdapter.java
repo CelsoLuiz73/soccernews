@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.celsoluiz73.soccernews.R;
-import com.celsoluiz73.soccernews.databinding.NewsItemBinding;
-import com.celsoluiz73.soccernews.domain.News;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import com.celsoluiz73.soccernews.R;
+import com.celsoluiz73.soccernews.databinding.NewsItemBinding;
+import com.celsoluiz73.soccernews.domain.News;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
@@ -55,7 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_TEXT, news.link);
-            holder.itemView.getContext().startActivity(Intent.createChooser(i, "share"));
+            context.startActivity(Intent.createChooser(i, "share"));
         });
         //Implementação da funcionalidade de "favoritar" (o evento será instanciado pelo Fragment)
         holder.binding.ivFavorite.setOnClickListener(view -> {
